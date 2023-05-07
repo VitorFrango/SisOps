@@ -1,0 +1,29 @@
+﻿Escreva um programa multitarefa em linguagem C padrão e segundo a norma POSIX, de nome mtts.c, constituído pela tarefa principal e mais nt tarefas designadas tarefas trabalhadoras, num total de nt+1 tarefas. O objetivo do programa é analisar um ficheiro e calcular a frequência de ocorrência em percentagem de cada letra do alfabeto, sendo indiferente minúsculas ou maiúsculas. 
+- O programa mtts recebe obrigatoriamente 3 argumentos na linha de comandos, 
+>> ./mtts nt nc ficheiro
+- nt é o no de tarefas trabalhadoras, com nt≥1. 
+- nc é o no de caracteres a analisar de cada vez, com nc≥1. 
+- ficheiro é o nome do ficheiro a analisar. 
+- O programa mtts deve testar se o número de argumentos dado na linha de comandos é correto e se os seus valores são válidos. Em caso de erro o programa deve emitir uma mensagem e terminar. 
+- No início do programa, a tarefa principal (main) deve imprimir três mensagem em linhas separadas: "Análise de letras do alfabeto com nt tarefas e blocos de nc carateres" (substituir valores); "Ficheiro ficheiro (dimensão bytes)" (substituir valores); "Relatório de tarefas:". 
+- Inicialmente, a tarefa principal lê o ficheiro inteiro para um array buf[] de carateres global previamente alocado com a função malloc() com a dimensão do ficheiro. Admite-se que a dimensão do ficheiro pode ser guardada numa variável do tipo int. 
+- Ciclicamente, as tarefas trabalhadoras acedem de cada vez a um bloco de nc carateres, analisam o seu conteúdo e guardam a frequência das letras (sem acentos) e do total de carateres “brancos” (espaços, tabs e new lines) num vetor de contadores de inteiros local. Os blocos devem ser acedidos (ou atribuídos às tarefas) sequencialmente, sendo que o primeiro bloco tem início no primeiro carater de buf[]. 
+- Quando criadas, as nt tarefas devem receber como argumento o seu número de ordem, entre 0 e nt-1. 
+- Antes (e só antes) de terminar, cada tarefa trabalhadora deve adicionar o resultado das suas contagens a um vetor de contadores de inteiros global e imprimir uma mensagem com o formato “T%d= %7.3f%%\n” com o no de ordem da tarefa e o total de carateres do ficheiro que a tarefa analisou em percentagem. 
+- Antes de terminar, a tarefa principal, que deve ser a última a terminar, deve imprimir uma tabela final com o título "Relatório de carateres:" e com a frequência de ocorrência das letras, uma por linha, com o formato "%c= %7.3f%%\n" para a letra e respetiva frequência total de ocorrência no ficheiro em percentagem (excluindo dos cálculos os carateres brancos). 
+- Indique no relatório os troços de código correspondentes a regiões críticas do programa e justifique a sua existência/necessidade. 
+2 
+- Pondere quais as funções da biblioteca pthread que vai utilizar no programa e consulte as respetivas man pages para se informar dos detalhes de funcionamento de cada uma. Pondere também cuidadosamente quais os recursos e as estruturas de dados manipuladas pelas tarefas e que requeiram exclusão mútua no seu acesso para o bom funcionamento do programa. 
+Dica: Neste programa não é necessário copiar blocos de carateres, bastando saber o endereço do início do bloco e o número respetivo de carateres do bloco. 
+- O programa deve estar identificado com um cabeçalho similar ao seguinte, 
+/*
+** UC: 21111 - Sistemas Operativos
+** e-fólio B 2022-23 (mtts.c)
+**
+** Aluno: 327555 - Paulo Costa
+*/
+Exemplo de saída do programa mtts (abreviada): 
+Análise de letras do alfabeto com 2 tarefas e blocos de 256 carateres Ficheiro ficheiro.txt (2000 bytes)
+Relatório de tarefas:
+T0= 70.000% 
+
